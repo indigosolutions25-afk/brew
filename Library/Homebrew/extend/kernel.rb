@@ -234,7 +234,9 @@ module Kernel
     odeprecated(method, replacement, disable: true, disable_on:, disable_for_developers:, caller:)
   end
 
-  sig { params(formula: T.any(String, Formula)).returns(String) }
+  # Signature should be the following, but we don't want to `require "formula"` to use it:
+  # sig { params(formula: T.any(String, Formula)).returns(String) }
+  sig { params(formula: T.untyped).returns(String) }
   def pretty_installed(formula)
     if !$stdout.tty?
       formula.to_s
@@ -245,7 +247,9 @@ module Kernel
     end
   end
 
-  sig { params(formula: T.any(String, Formula)).returns(String) }
+  # Signature should be the following, but we don't want to `require "formula"` to use it:
+  # sig { params(formula: T.any(String, Formula)).returns(String) }
+  sig { params(formula: T.untyped).returns(String) }
   def pretty_outdated(formula)
     if !$stdout.tty?
       formula.to_s
@@ -256,7 +260,9 @@ module Kernel
     end
   end
 
-  sig { params(formula: T.any(String, Formula)).returns(String) }
+  # Signature should be the following, but we don't want to `require "formula"` to use it:
+  # sig { params(formula: T.any(String, Formula)).returns(String) }
+  sig { params(formula: T.untyped).returns(String) }
   def pretty_uninstalled(formula)
     if !$stdout.tty?
       formula.to_s
@@ -285,7 +291,9 @@ module Kernel
     res.freeze
   end
 
-  sig { params(formula: T.nilable(Formula)).void }
+  # Signature should be the following, but we don't want to `require "formula"` to use it:
+  # sig { params(formula: T.nilable(Formula)).void }
+  sig { params(formula: T.untyped).void }
   def interactive_shell(formula = nil)
     unless formula.nil?
       ENV["HOMEBREW_DEBUG_PREFIX"] = formula.prefix.to_s
@@ -441,9 +449,14 @@ module Kernel
 
   # Ensure the given formula is installed
   # This is useful for installing a utility formula (e.g. `shellcheck` for `brew style`)
+  # Signature should be the following, but we don't want to `require "formula"` to use it:
+  # sig {
+  #   params(formula_or_name: T.any(String, Formula), reason: String, latest: T::Boolean, output_to_stderr: T::Boolean,
+  #          quiet: T::Boolean).returns(Formula)
+  # }
   sig {
-    params(formula_or_name: T.any(String, Formula), reason: String, latest: T::Boolean, output_to_stderr: T::Boolean,
-           quiet: T::Boolean).returns(Formula)
+    params(formula_or_name: T.untyped, reason: String, latest: T::Boolean, output_to_stderr: T::Boolean,
+           quiet: T::Boolean).returns(T.untyped)
   }
   def ensure_formula_installed!(formula_or_name, reason: "", latest: false,
                                 output_to_stderr: true, quiet: false)
