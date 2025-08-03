@@ -124,6 +124,7 @@ class DependencyCollector
     Dependency.new("bzip2", [*tags, :implicit]) unless which("bzip2")
   end
 
+  sig { returns(T::Boolean) }
   def self.tar_needs_xz_dependency?
     !new.xz_dep_if_needed([]).nil?
   end

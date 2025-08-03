@@ -11,26 +11,32 @@ module Dependable
 
   attr_reader :tags
 
+  sig { returns(T::Boolean) }
   def build?
     tags.include? :build
   end
 
+  sig { returns(T::Boolean) }
   def optional?
     tags.include? :optional
   end
 
+  sig { returns(T::Boolean) }
   def recommended?
     tags.include? :recommended
   end
 
+  sig { returns(T::Boolean) }
   def test?
     tags.include? :test
   end
 
+  sig { returns(T::Boolean) }
   def implicit?
     tags.include? :implicit
   end
 
+  sig { returns(T::Boolean) }
   def required?
     !build? && !test? && !optional? && !recommended?
   end
@@ -43,12 +49,14 @@ module Dependable
     Options.create(option_tags)
   end
 
+  sig { params(build: BuildOptions).returns(T::Boolean) }
   def prune_from_option?(build)
     return false if !optional? && !recommended?
 
     build.without?(self)
   end
 
+  sig { params(dependent: Dependency, formula: T.nilable(Formula)).returns(T::Boolean) }
   def prune_if_build_and_not_dependent?(dependent, formula = nil)
     return false unless build?
     return dependent.installed? unless formula

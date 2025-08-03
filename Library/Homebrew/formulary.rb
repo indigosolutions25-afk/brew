@@ -34,6 +34,7 @@ module Formulary
     @factory_cache = true
   end
 
+  sig { returns(T::Boolean) }
   def self.factory_cached?
     !@factory_cache.nil?
   end
@@ -368,6 +369,7 @@ module Formulary
 
       @post_install_defined_boolean = json_formula["post_install_defined"]
       @post_install_defined_boolean = true if @post_install_defined_boolean.nil? # Backwards compatibility
+      sig { returns(T::Boolean) }
       def post_install_defined?
         self.class.instance_variable_get(:@post_install_defined_boolean)
       end

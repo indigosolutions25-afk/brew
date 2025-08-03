@@ -109,6 +109,7 @@ class SoftwareSpec
     @resource.url
   end
 
+  sig { returns(T::Boolean) }
   def bottle_defined?
     !bottle_specification.collector.tags.empty?
   end

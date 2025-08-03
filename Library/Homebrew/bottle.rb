@@ -104,11 +104,13 @@ class Bottle
     @fetch_tab_retried = false
   end
 
+  sig { returns(T::Boolean) }
   def compatible_locations?
     @spec.compatible_locations?(tag: @tag)
   end
 
   # Does the bottle need to be relocated?
+  sig { returns(T::Boolean) }
   def skip_relocation?
     @spec.skip_relocation?(tag: @tag)
   end
@@ -196,6 +198,7 @@ class Bottle
     specs
   end
 
+  sig { returns(T::Boolean) }
   def fallback_on_error?
     # Use the default bottle domain as a fallback mirror
     if @resource.url.start_with?(Homebrew::EnvConfig.bottle_domain) &&

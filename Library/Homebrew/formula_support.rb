@@ -14,18 +14,22 @@ class KegOnlyReason
     @explanation = explanation
   end
 
+  sig { returns(T::Boolean) }
   def versioned_formula?
     @reason == :versioned_formula
   end
 
+  sig { returns(T::Boolean) }
   def provided_by_macos?
     @reason == :provided_by_macos
   end
 
+  sig { returns(T::Boolean) }
   def shadowed_by_macos?
     @reason == :shadowed_by_macos
   end
 
+  sig { returns(T::Boolean) }
   def by_macos?
     provided_by_macos? || shadowed_by_macos?
   end

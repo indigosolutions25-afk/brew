@@ -277,6 +277,7 @@ module Homebrew
       @skip_clean_formulae.include?(formula.name) || @skip_clean_formulae.intersect?(formula.aliases)
     end
 
+    sig { returns(T::Boolean) }
     def self.periodic_clean_due?
       return false if Homebrew::EnvConfig.no_install_cleanup?
 
@@ -549,6 +550,7 @@ module Homebrew
       end
     end
 
+    sig { returns(T::Boolean) }
     def use_system_ruby?
       false
     end

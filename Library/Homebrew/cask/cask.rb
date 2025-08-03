@@ -227,6 +227,7 @@ module Cask
       metadata_main_container_path/"config.json"
     end
 
+    sig { returns(T.nilable(T::Boolean)) }
     def checksumable?
       return false if (url = self.url).nil?
 
@@ -246,6 +247,7 @@ module Cask
                                      .instance_eval { |x| Digest::SHA256.file(x).hexdigest }
     end
 
+    sig { returns(T::Boolean) }
     def outdated_download_sha?
       return true unless checksumable?
 

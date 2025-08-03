@@ -50,11 +50,13 @@ class BuildOptions
   # ```ruby
   # args << "--no-spam-plz" if build.without? "spam"
   # ```
+  sig { params(val: T.any(String, Dependable)).returns(T::Boolean) }
   def without?(val)
     !with?(val)
   end
 
   # True if a {Formula} is being built as a bottle (i.e. binary package).
+  sig { returns(T::Boolean) }
   def bottle?
     include? "build-bottle"
   end
@@ -75,6 +77,7 @@ class BuildOptions
   #   args << "--and-a-cold-beer" if build.with? "cold-beer"
   # end
   # ```
+  sig { returns(T::Boolean) }
   def head?
     include? "HEAD"
   end
@@ -87,11 +90,13 @@ class BuildOptions
   # ```ruby
   # args << "--some-beta" if build.head?
   # ```
+  sig { returns(T::Boolean) }
   def stable?
     !head?
   end
 
   # True if the build has any arguments or options specified.
+  sig { returns(T::Boolean) }
   def any_args_or_options?
     !@args.empty? || !@options.empty?
   end

@@ -286,6 +286,7 @@ class Tap
   # Check whether this {Tap} is a Git repository.
   #
   # @api public
+  sig { returns(T::Boolean) }
   def git?
     git_repository.git_repository?
   end
@@ -331,6 +332,7 @@ class Tap
   # Check whether this {Tap} is an official Homebrew tap.
   #
   # @api public
+  sig { returns(T::Boolean) }
   def official?
     user == "Homebrew"
   end
@@ -381,6 +383,7 @@ class Tap
   end
 
   # Check whether this {Tap} is a shallow clone.
+  sig { returns(T::Boolean) }
   def shallow?
     (path/".git/shallow").exist?
   end

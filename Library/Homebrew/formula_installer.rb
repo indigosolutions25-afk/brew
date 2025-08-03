@@ -287,7 +287,7 @@ class FormulaInstaller
     true
   end
 
-  sig { params(dep: Formula, build: BuildOptions).returns(T::Boolean) }
+  sig { params(dep: Formula, build: BuildOptions).returns(T.nilable(T::Boolean)) }
   def install_bottle_for?(dep, build)
     return pour_bottle? if dep == formula
 

@@ -19,6 +19,7 @@ class LinkageCacheStore < CacheStore
   # Returns `true` if the database has any value for the current `keg_path`.
   #
   # @return [Boolean]
+  sig { returns(T::Boolean) }
   def keg_exists?
     !database.get(@keg_path).nil?
   end

@@ -80,6 +80,7 @@ module Homebrew
       prefix.to_s == DEFAULT_PREFIX
     end
 
+    sig { returns(T::Boolean) }
     def failed?
       @failed ||= false
       @failed == true
@@ -89,14 +90,17 @@ module Homebrew
       @messages ||= Messages.new
     end
 
+    sig { returns(T::Boolean) }
     def raise_deprecation_exceptions?
       @raise_deprecation_exceptions == true
     end
 
+    sig { returns(T::Boolean) }
     def auditing?
       @auditing == true
     end
 
+    sig { returns(T::Boolean) }
     def running_as_root?
       @process_euid ||= Process.euid
       @process_euid.zero?
@@ -106,10 +110,12 @@ module Homebrew
       @owner_uid ||= HOMEBREW_ORIGINAL_BREW_FILE.stat.uid
     end
 
+    sig { returns(T::Boolean) }
     def running_as_root_but_not_owned_by_root?
       running_as_root? && !owner_uid.zero?
     end
 
+    sig { returns(T::Boolean) }
     def auto_update_command?
       ENV.fetch("HOMEBREW_AUTO_UPDATE_COMMAND", false).present?
     end
@@ -119,7 +125,7 @@ module Homebrew
       @running_command_with_args = "#{cmd} #{ARGV.join(" ")}"
     end
 
-    sig { returns String }
+    sig { returns(String) }
     def running_command_with_args
       "brew #{@running_command_with_args}".strip
     end

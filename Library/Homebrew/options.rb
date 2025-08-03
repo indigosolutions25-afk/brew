@@ -118,6 +118,7 @@ class Options
   end
   alias eql? ==
 
+  sig { returns(T::Boolean) }
   def empty?
     @options.empty?
   end

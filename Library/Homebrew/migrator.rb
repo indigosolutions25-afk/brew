@@ -197,6 +197,7 @@ class Migrator
     kegs.select { |keg| keg.linked? || keg.optlinked? }
   end
 
+  sig { returns(T::Boolean) }
   def pinned?
     @pinned
   end

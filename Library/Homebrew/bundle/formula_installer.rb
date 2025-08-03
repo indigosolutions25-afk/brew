@@ -86,19 +86,23 @@ module Homebrew
         end
       end
 
+      sig { returns(T::Boolean) }
       def start_service?
         @start_service.present?
       end
 
+      sig { returns(T::Boolean) }
       def start_service_needed?
         require "bundle/brew_services"
         start_service? && !BrewServices.started?(@full_name)
       end
 
+      sig { returns(T::Boolean) }
       def restart_service?
         @restart_service.present?
       end
 
+      sig { returns(T::Boolean) }
       def restart_service_needed?
         return false unless restart_service?
 
@@ -106,6 +110,7 @@ module Homebrew
         @restart_service.to_s == "always" || changed?
       end
 
+      sig { returns(T::Boolean) }
       def changed?
         @changed.present?
       end
@@ -225,22 +230,27 @@ module Homebrew
 
       private
 
+      sig { returns(T::Boolean) }
       def installed?
         FormulaInstaller.formula_installed?(@name)
       end
 
+      sig { returns(T::Boolean) }
       def linked?
         Formula[@full_name].linked?
       end
 
+      sig { returns(T::Boolean) }
       def keg_only?
         Formula[@full_name].keg_only?
       end
 
+      sig { returns(T::Boolean) }
       def unlinked_and_keg_only?
         !linked? && keg_only?
       end
 
+      sig { returns(T::Boolean) }
       def upgradable?
         FormulaInstaller.formula_upgradable?(@name)
       end

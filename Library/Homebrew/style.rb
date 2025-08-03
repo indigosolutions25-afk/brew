@@ -376,6 +376,7 @@ module Homebrew
         @severity[0].upcase
       end
 
+      sig { returns(T::Boolean) }
       def corrected?
         @corrected
       end

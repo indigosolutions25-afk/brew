@@ -66,6 +66,7 @@ module Cask
       end
     end
 
+    sig { returns(T::Boolean) }
     def self.available?
       @status ||= check_quarantine_support
 

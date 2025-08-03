@@ -87,6 +87,7 @@ class CacheStoreDatabase
   # Returns `true` if the cache file has been created for the given `@type`.
   #
   # @return [Boolean]
+  sig { returns(T::Boolean) }
   def created?
     cache_path.exist?
   end
@@ -110,6 +111,7 @@ class CacheStoreDatabase
   # Returns `true` if the cache is empty.
   #
   # @return [Boolean]
+  sig { returns(T::Boolean) }
   def empty?
     db.empty?
   end
@@ -153,6 +155,7 @@ class CacheStoreDatabase
   # Returns `true` if the cache needs to be written to disk.
   #
   # @return [Boolean]
+  sig { returns(T::Boolean) }
   def dirty?
     @dirty
   end

@@ -189,10 +189,12 @@ class LinkageChecker
     store&.update!(keg_files_dylibs:)
   end
 
+  sig { returns(T::Boolean) }
   def system_libraries_exist_in_cache?
     false
   end
 
+  sig { params(dylib: String).returns(T::Boolean) }
   def dylib_found_in_shared_cache?(dylib)
     @dyld_shared_cache_contains_path ||= begin
       libc = Fiddle.dlopen("/usr/lib/libSystem.B.dylib")
@@ -279,6 +281,7 @@ class LinkageChecker
 
   # Whether or not dylib is a harmless broken link, meaning that it's
   # okay to skip (and not report) as broken.
+  sig { params(dylib: String).returns(T::Boolean) }
   def harmless_broken_link?(dylib)
     # libgcc_s_* is referenced by programs that use the Java Service Wrapper,
     # and is harmless on x86(_64) machines
@@ -291,6 +294,7 @@ class LinkageChecker
     ].include?(dylib)
   end
 
+  sig { params(dylib: String).returns(T::Boolean) }
   def system_framework?(dylib)
     dylib.start_with?("/System/Library/Frameworks/")
   end
