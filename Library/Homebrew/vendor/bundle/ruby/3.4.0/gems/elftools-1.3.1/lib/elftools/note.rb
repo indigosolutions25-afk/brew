@@ -2,6 +2,7 @@
 
 require 'elftools/structs'
 require 'elftools/util'
+require 'elftools/nonlinear_object_parser'
 
 module ELFTools
   # Since both note sections and note segments refer to notes, this module
@@ -13,6 +14,8 @@ module ELFTools
   #   {ELFTools::Segments::NoteSegment} since some methods here assume some
   #   attributes already exist.
   module Note
+    include NonlinearObjectParser
+
     # Since size of {ELFTools::Structs::ELF_Nhdr} will not change no matter in
     # what endian and what arch, we can do this here. This value should equal
     # to 12.
@@ -44,21 +47,15 @@ module ELFTools
     def each_notes
       return enum_for(:each_notes) unless block_given?
 
-      @notes_offset_map ||= {}
-      cur = note_start
-      notes = []
-      while cur < note_start + note_total_size
-        stream.pos = cur
-        @notes_offset_map[cur] ||= create_note(cur)
-        note = @notes_offset_map[cur]
+      stream.pos = note_start
+      parse_nonlinear_objects(note_total_size) do |note|
+        yield note
+
         # name and desc size needs to be 4-bytes align
         name_size = Util.align(note.header.n_namesz, 2)
         desc_size = Util.align(note.header.n_descsz, 2)
-        cur += SIZE_OF_NHDR + name_size + desc_size
-        notes << note
-        yield note
+        SIZE_OF_NHDR + name_size + desc_size
       end
-      notes
     end
 
     # Simply +#notes+ to get all notes.
@@ -78,9 +75,10 @@ module ELFTools
       header.class.self_endian
     end
 
-    def create_note(cur)
-      nhdr = Structs::ELF_Nhdr.new(endian:, offset: stream.pos).read(stream)
-      ELFTools::Note::Note.new(nhdr, stream, cur)
+    def parse_object
+      offset = stream.pos
+      nhdr = Structs::ELF_Nhdr.new(endian:, offset:).read(stream)
+      ELFTools::Note::Note.new(nhdr, stream, offset)
     end
 
     # Class of a note.

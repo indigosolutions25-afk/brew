@@ -12,4 +12,7 @@ module ELFTools
 
   # Raised on invalid ELF data encoding (EI_DATA).
   class ELFDataError < ELFError; end
+
+  # Raised on invalid symbol version structure.
+  class ELFSymbolVersionStructureError < ELFError; end
 end

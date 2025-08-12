@@ -17,7 +17,8 @@ module PatchELF
     def page_size(e_machine = nil)
       # Different architectures have different minimum section alignments.
       case e_machine
-      when ELFTools::Constants::EM_SPARC,
+      when ELFTools::Constants::EM_ALPHA,
+           ELFTools::Constants::EM_IA_64,
            ELFTools::Constants::EM_MIPS,
            ELFTools::Constants::EM_PPC,
            ELFTools::Constants::EM_PPC64,
@@ -25,6 +26,9 @@ module PatchELF
            ELFTools::Constants::EM_TILEGX,
            ELFTools::Constants::EM_LOONGARCH
         0x10000
+      when ELFTools::Constants::EM_SPARC,
+           ELFTools::Constants::EM_SPARCV9
+        0x2000
       else
         0x1000
       end

@@ -215,5 +215,44 @@ module ELFTools
       choice :r_info, **CHOICE_SIZE_T['uint']
       choice :r_addend, **CHOICE_SIZE_T['int']
     end
+
+    # Version definition structure.
+    class ELF_Verdef < ELFStruct
+      endian :big_and_little
+      uint16 :vd_version
+      uint16 :vd_flags
+      uint16 :vd_ndx
+      uint16 :vd_cnt
+      uint32 :vd_hash
+      uint32 :vd_aux
+      uint32 :vd_next
+    end
+
+    # Version definition auxiliary structure.
+    class ELF_Verdaux < ELFStruct
+      endian :big_and_little
+      uint32 :vda_name
+      uint32 :vda_next
+    end
+
+    # Version requirement structure.
+    class ELF_Verneed < ELFStruct
+      endian :big_and_little
+      uint16 :vn_version
+      uint16 :vn_cnt
+      uint32 :vn_file
+      uint32 :vn_aux
+      uint32 :vn_next
+    end
+
+    # Version requirement auxiliary structure.
+    class ELF_Vernaux < ELFStruct
+      endian :big_and_little
+      uint32 :vna_hash
+      uint16 :vna_flags
+      uint16 :vna_other
+      uint32 :vna_name
+      uint32 :vna_next
+    end
   end
 end

@@ -53,6 +53,7 @@ module PatchELF
     # @macro note_apply
     def interpreter=(interp)
       return if interpreter_.nil? # will also show warning if there's no interp segment.
+      return if interpreter == interp
 
       @set[:interpreter] = interp
     end
@@ -127,6 +128,7 @@ module PatchELF
     # @macro note_apply
     def soname=(name)
       return if soname_.nil?
+      return if soname == name
 
       @set[:soname] = name
     end

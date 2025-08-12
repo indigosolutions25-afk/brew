@@ -10,6 +10,9 @@ require 'elftools/sections/null_section'
 require 'elftools/sections/relocation_section'
 require 'elftools/sections/str_tab_section'
 require 'elftools/sections/sym_tab_section'
+require 'elftools/sections/version_definition_section'
+require 'elftools/sections/version_requirement_section'
+require 'elftools/sections/version_symbol_section'
 
 module ELFTools
   # Defines different types of sections in this module.
@@ -29,6 +32,9 @@ module ELFTools
                 when Constants::SHT_RELA, Constants::SHT_REL then RelocationSection
                 when Constants::SHT_STRTAB then StrTabSection
                 when Constants::SHT_SYMTAB, Constants::SHT_DYNSYM then SymTabSection
+                when Constants::SHT_GNU_verdef then VersionDefinitionSection
+                when Constants::SHT_GNU_verneed then VersionRequirementSection
+                when Constants::SHT_GNU_versym then VersionSymbolSection
                 else Section
                 end
         klass.new(header, stream, *args, **kwargs)
