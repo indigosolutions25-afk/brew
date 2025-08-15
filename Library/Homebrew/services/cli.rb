@@ -219,7 +219,7 @@ module Homebrew
                 end
               end
               service.reset_cache!
-              quiet_system System.launchctl, "stop", "#{domain_target}/#{service.service_name}" if service.pid?
+              quiet_system System.launchctl, "kill", "SIGTERM", "#{domain_target}/#{service.service_name}" if service.pid?
             end
           end
 
@@ -253,7 +253,7 @@ module Homebrew
               System.candidate_domain_targets.each do |domain_target|
                 break unless service.pid?
 
-                quiet_system System.launchctl, "stop", "#{domain_target}/#{service.service_name}"
+                quiet_system System.launchctl, "kill", "SIGTERM", "#{domain_target}/#{service.service_name}"
                 service.reset_cache!
               end
             end
