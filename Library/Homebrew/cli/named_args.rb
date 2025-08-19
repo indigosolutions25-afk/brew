@@ -336,21 +336,21 @@ module Homebrew
       end
 
       sig {
-        params(name: String, only: T.nilable(Symbol), method: T.nilable(Symbol), warn: T.nilable(T::Boolean),
+        params(name: String, only: T.nilable(Symbol), method: T.nilable(Symbol), warn: T::Boolean,
                download_queue: T.nilable(Homebrew::DownloadQueue))
           .returns(T.any(Formula, Keg, Cask::Cask, T::Array[Keg]))
       }
-      def load_and_fetch_full_formula_or_cask(name, only: nil, method: nil, warn: nil, download_queue: nil)
+      def load_and_fetch_full_formula_or_cask(name, only: nil, method: nil, warn: false, download_queue: nil)
         formula_or_cask = load_formula_or_cask(name, only:, method:, warn:)
         formula_or_cask.fetch_fully_loaded_formula!(download_queue:) if formula_or_cask.is_a?(Formula)
         formula_or_cask
       end
 
       sig {
-        params(name: String, only: T.nilable(Symbol), method: T.nilable(Symbol), warn: T.nilable(T::Boolean))
+        params(name: String, only: T.nilable(Symbol), method: T.nilable(Symbol), warn: T::Boolean)
           .returns(T.any(Formula, Keg, Cask::Cask, T::Array[Keg]))
       }
-      def load_formula_or_cask(name, only: nil, method: nil, warn: nil)
+      def load_formula_or_cask(name, only: nil, method: nil, warn: false)
         Homebrew.with_no_api_env_if_needed(@without_api) do
           unreadable_error = nil
 
